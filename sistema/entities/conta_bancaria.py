@@ -10,8 +10,13 @@ sys.path.append(diretorio_pai)
 
 from funcoes_gerais import *
 
-class Cliente:
-    def __init__(self, nome: str, cpf: str, telefone: str) -> None:
-        self.nome = nome
-        self.cpf = cpf
-        self.telefone = telefone
+class ContaBancaria:
+    def __init__(self, saldo=0.0):
+        self._id = gerar_id() # Atributo temporário para testes
+        self.num_conta = gerar_num_conta()
+        self.saldo = saldo
+
+    @property
+    def id(self):
+        # Verificar permissões
+        return self._id
