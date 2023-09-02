@@ -38,36 +38,19 @@ def executar_query(connection, query):
     except Error as err:
         print(f'Erro: "{err}"')
 
-def cadastro_cliente(connection, cpf, nome, telefone):
+def executar_fetch(connection, query):
+    cursor = connection.cursor()
 
-    query = f"""
-    insert into cliente values(
-    '{cpf}', '{nome}', '{telefone}'
-    );
-    """
-
-    executar_query(connection, query)
-
-def cadastro_conta(connection, id, num_conta, cliente, saldo=0.0):
-
-    query = f"""
-    insert into conta values(
-    '{id}', {saldo}, '{num_conta}', '{cliente}'
-    );
-    """
-
-    executar_query(connection, query)
+    try:
+        cursor.execute(query)
+        result = cursor.fetchall()
+        return result
+    
+    except Error as err:
+        print(f'Erro: "{err}"')
 
 
-connection = criar_conexao_bd("localhost",
-                               input("Usuário: "),
-                               getpass("Senha: "),
-                               "sistemabancario")
-
-
-# cliente_table = """
-# """
-# executar_query(connection, cliente_table)
-
-# cadastro_cliente(connection, "12345678911", "Geraldo Luiz", "81998765432")
-# cadastro_conta(connection, '1XSK2F56J9', '0025456781', '12345678911')
+# connection = criar_conexao_bd("localhost",
+#                                input("Usuário: "),
+#                                getpass("Senha: "),
+#                                "sistemabancario")
