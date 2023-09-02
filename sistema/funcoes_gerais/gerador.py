@@ -4,7 +4,7 @@
 
 from random import randint, sample
 
-def gerarID():
+def gerar_id():
     novo_id = ''
     char_check = {}
 
@@ -36,3 +36,19 @@ def gerarID():
     
     return novo_id
 
+def gerar_num_conta():
+    num_conta = str(randint(10000000, 99999999))
+    digito_calc = 0
+    divisor = 9
+
+    for num in num_conta:
+        digito_calc += int(num) * divisor
+        divisor -= 1
+    
+    digito_calc %= 11
+
+    digito_calc = 'X' if digito_calc == 10 else str(digito_calc)
+
+    num_conta += '-' + digito_calc
+
+    return num_conta
