@@ -1,7 +1,5 @@
 from controllers.conexao_bd import (
-    criar_conexao_bd,
-    executar_query,
-    executar_fetch
+    conexaoBD
 )
 
 from controllers.cliente_bd import (

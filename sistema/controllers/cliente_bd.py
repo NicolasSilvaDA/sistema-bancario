@@ -8,12 +8,9 @@ sys.path.append(diretorio_pai)
 # do projeto, evitando erros de reconhecimento de diretório ao importar outros
 # módulos.
 
-from controllers import *
+from controllers import conexaoBD
 
-from mysql.connector import Error
-from getpass import getpass
-
-def cadastro_cliente(connection, cpf, nome, telefone):
+def cadastro_cliente(cpf, nome, telefone):
 
     query = f"""
     INSERT INTO cliente VALUES(
@@ -21,40 +18,31 @@ def cadastro_cliente(connection, cpf, nome, telefone):
     );
     """
 
-    executar_query(connection, query)
+    conexaoBD.executar_query(query)
 
 
-def consulta_cliente(connection, cpf):
-    try:
-        query = f"""
-        SELECT * FROM cliente
-        WHERE cpf={cpf};
-        """
+def consulta_cliente(cpf):
+    query = f"""
+    SELECT * FROM cliente
+    WHERE cpf='{cpf}';
+    """
 
-        cliente = {}
-        result = executar_fetch(connection, query)
+    cliente = {}
+    result = conexaoBD.executar_fetch(query)
         
-        if result != None:
-            itens = []
-            for item in result[0]:
-                itens.append(item)
+    if result:
+        itens = [item for item in result[0]]
             
-            cliente = {
-                "cpf" : itens[0],
-                "nome" : itens[1],
-                "telefone" : itens[2]
-            }
+        cliente = {
+            "cpf" : itens[0],
+            "nome" : itens[1],
+            "telefone" : itens[2]
+        }
+    else:
+        print("Nenhum cliente foi encontrado!")
 
-        return cliente
 
-    except Error as err: # Tratamento de erros básico para teste
-        print(f"Não foi possível realizar sua solicitação! Erro: '{err}'")
+    return cliente
 
-# connection = criar_conexao_bd(
-#     'localhost',
-#     input("Usuário: "),
-#     getpass("Senha: "),
-#     'sistemabancario'
-# )
 
-# print(consulta_cliente(connection, '12345678911'))
+# consulta_cliente('98765432111')
