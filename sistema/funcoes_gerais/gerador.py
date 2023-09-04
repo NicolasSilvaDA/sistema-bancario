@@ -8,15 +8,15 @@ def gerar_id():
     novo_id = ''
     char_check = {}
 
-    for loop in range(0, 5):
+    while len(novo_id) < 10:
         num = str(randint(0, 9))
-        letra = chr(randint(65, 90))
+        letra = str(randint(65, 90))
 
         if num in char_check:
-            char_check[num] += 1
-
             if char_check[num] < 2:
                 novo_id += num
+            
+            char_check[num] += 1
 
         else:
             char_check[num] = 1
@@ -52,3 +52,4 @@ def gerar_num_conta():
     num_conta += '-' + digito_calc
 
     return num_conta
+
