@@ -12,11 +12,5 @@ from funcoes_gerais import *
 
 class ContaBancaria:
     def __init__(self, saldo=0.0):
-        self._id = gerar_id() # Atributo temporário para testes
         self.num_conta = gerar_num_conta()
         self.saldo = saldo
-
-    @property
-    def id(self):
-        # Verificar permissões
-        return self._id
